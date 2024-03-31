@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getUserFriendsPosts, createPost, createFriendRequest, acceptFriendRequest } from "../../controllers/index.js";
+import { getUserFriendsPosts, createPost, createFriendRequest, acceptFriendRequest, rejectFriendRequest } from "../../controllers/index.js";
 import { asyncHandler } from "../../utils/index.js";
 
 const router = Router();
