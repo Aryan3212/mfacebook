@@ -1,0 +1,37 @@
+datasource db {
+  url      = env("DATABASE_URL")
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  name      String?
+  posts Post[]
+  friendsOf Friends[] @relation("FriendsOf")
+  friends Friends[] @relation("Friends")
+}
+
+model Post {
+    id        Int      @id @default(autoincrement())
+    user User @relation(fields: [userId], references: [id])
+    userId Int
+    body String?
+}
+model FriendRequests {
+  id        Int      @id @default(autoincrement())
+  userId1   Int
+  userId2   Int
+}
+
+model Friends {
+    id        Int      @id @default(autoincrement())
+    userId1   Int
+    userId2   Int
+    user1     User     @relation("Friends", fields: [userId1], references: [id])
+    user2     User     @relation("FriendsOf", fields: [userId2], references: [id])
+}
